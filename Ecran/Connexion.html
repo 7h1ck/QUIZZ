@@ -7,13 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
-
-    <div class="container " style="background-image: url(Images/img-bg.jpg); height: 700px;">
-        <!-- <header> -->
+    <!-- <header> -->
             <nav class="navbar navbar-dark bg-dark d-flex justify-content-start">
                 <a class="navbar-brand" href="#">
                     <img src="Images/logo-QuizzSA.png" alt="logo" style="width:40px;">
@@ -21,11 +18,13 @@
                 <h2 class="text-white text-center flex-grow-1">Le plaisir de jouer</h2>
             </nav>
         <!-- </header> -->
-        
-            <p>
-                <br><br>
-            </p>
-            <div class="card w-50 mx-auto">
+
+
+    <div class="container-fluid pt-5 " style="background:url(Images/img-bg.jpg) no-repeat; height: 700px;background-size: cover;">
+                
+            
+
+            <div class="card w-50 mx-auto mt-5">
                 <div class="card-header bg-info ">
                    <span class="text-white">Login Form</span>
                 </div>
@@ -35,13 +34,13 @@
                           <!-- <label for="uname">Username:</label> -->
                           <input type="text" class="form-control" id="uname" placeholder="Login" name="uname" required>
                           <div class="valid-feedback">Valid.</div>
-                          <div class="invalid-feedback">Please fill out this field.</div>
+                          <div class="invalid-feedback">Le champ est obligatoir</div>
                         </div>
                         <div class="form-group">
                           <!-- <label for="pwd">Password:</label> -->
                           <input type="password" class="form-control" id="pwd" placeholder="Password" name="pswd" required>
                           <div class="valid-feedback">Valid.</div>
-                          <div class="invalid-feedback">Please fill out this field.</div>
+                          <div class="invalid-feedback">Le champ est obligatoir</div>
                         </div>
                         
                         <button type="submit" class="btn btn-info mr-3">Connexion</button>
@@ -72,9 +71,9 @@
                 </div>
             </div>
 
-        <div>
+    </div>
     
-</div></div>
+
       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
