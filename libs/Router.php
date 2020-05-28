@@ -1,64 +1,70 @@
 <?php
 class Router{
-     private $ctrl;
 
-   public   function  getRoute(){
-       //Chargement automatique de toutes classes => autoloading
+
+  public function getRoute(){
+      
       try{
-           //Autoloading
-            spl_autoload_register(function ($className) {
-             $pathLibs= "libs/".$className . '.php';
-             $pathControllers= "controllers/".$className . '.php';
-             $pathModels= "models/".$className . '.php';
-           
-             if(file_exists($pathLibs)){
-                 require_once $pathLibs;   
-             }elseif(file_exists($pathModels)){
-                  require_once  $pathModels;  
-             }
-                           
-            });
-     
-            if(isset($_GET['url'])){
-               //=>transforme une chaine en tableau suivant un delimiteur   
-               $url= explode ("/",$_GET['url']);
-               $ctrlClass=ucfirst( $url[0]);
-               $pathControllers="controllers/". $ctrlClass. '.php';
-               if(file_exists($pathControllers)){
-                     require_once($pathControllers);
-                     $this->ctrl=new $ctrlClass() ;
-                    if(method_exists($this->ctrl,$url[1])){
-                          $this->ctrl->{$url[1]}();
-                    }else{
-                        require_once "controllers/Errors.php";
-                        $this->ctrl=new Errors();
-                        $this->ctrl->showError("Cette Methode n'existe pas"); 
-                    }
+        //Scenerio Nominal ou Alternatif
+        //1)autoloading => changement automatique des classes
+          spl_autoload_register(function ($class) {
+            $pathLibs = "./libs/".$class.".php";
+            $pathModels = "./models/".$class.".php";
+            $pathControlers = "./controllers/".$class.".php";
+
+            if (file_exists($pathLibs)) {
+                require  $pathLibs; 
+            }elseif(file_exists( $pathControlers)){
+              require  $pathControlers; 
+            }elseif(file_exists($pathModels )){
+              require  $pathModels; 
+            } 
+        });
+     //2-Selectionner le Controller et executé une methode de ce controller
+     //en se basant sur l'url =>controller/action/parametre1/parametre1/ ..../parametren
+        if(isset($_GET['url'])){
+          
+          //transforme url en tableau
+           $url=explode("/", $_GET['url']);
+           //Convertir Premeire lettre du Controller en Majuscule
+          $controller=ucfirst($url[0]);
+          $pathControlers = "./controllers/".$controller.".php";
+          //Controller Existe
+          if(file_exists($pathControlers)){
+            $cont=new $controller();
+            //Action  Existe
+            if(isset($url[1])){
+              //Methode Existe dans le Controller
+               if(method_exists($cont,$url[1])){
+                $action=$url[1];
+                $cont->{$action}();
                }else{
-                  require_once "controllers/Errors.php";
-                  $this->ctrl=new Errors();
-                  $this->ctrl->showError("Ce controller n'existe pas");
+                   //Methode  n'Existe pas dans le Controller
+                   $ctrl=new Erreur();
+                   $ctrl->showMessage("Methode  n'Existe pas dans le Controller");
                }
-              
+
+               
             }else{
-                  //Page Par defaut
-                  require_once "controllers/Security.php";
-                  $this->ctrl=new Security();
-                  $this->ctrl->index();
-
+              $ctrl=new Security();
+              $ctrl->showPage();
             }
+         
+          }else{
+            //Controller n'Existe pas
+              $ctrl=new Erreur();
+              $ctrl->showMessage("Ce Controller n'existe pas");
+          }
+         
+        }else{
+          $ctrl=new Security();
+          $ctrl->showPage();
+        }
+     
+      }catch(Exception $ex){
 
-      } catch(Exception $ex){
-            require_once "controllers/Error.php";
-            $this->ctrl=new Error();
-            $this->ctrl->showError($ex->getMessage());
+         //Scenario Exception
+          die("Error");
       }
-       
-
-   }
-
-
-
-
-
+  }
 }
