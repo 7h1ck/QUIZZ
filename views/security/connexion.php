@@ -10,28 +10,36 @@
                           <input type="text" class="form-control" id="uname" placeholder="login" name="login" required>
                           <div class="valid-feedback">Valid.</div>
                           <div class="invalid-feedback">Le champ est obligatoir</div>
-                          <small class="text-danger"></small>
+                <?php
+                if (isset($errors['login'])){ 
+                  ?>
+                          <small class="text-danger"><?=$errors['login']?></small>
+                <?php } ?>       
+
                         </div>
                         <div class="form-group">
                           <!-- <label for="pwd">Password:</label> -->
                           <input type="password" class="form-control" id="pwd" placeholder="password" name="password" required>
                           <div class="valid-feedback">Valid.</div>
                           <div class="invalid-feedback">Le champ est obligatoir</div>
+                <?php
+                if (isset($errors['password'])){ 
+                  ?>
+                          <small class="text-danger"><?=$errors['password']?></small>
+                <?php } ?>
 
-                          <?php
-  if (isset($err_login)) {
-    
-  ?>
+                <?php
+                if (isset($err_login)){ 
+                  ?>
                           <small class="text-danger"><?=$err_login?></small>
-
-                          <?php } ?>
+                <?php } ?>
+                
                         </div>
-                        
                         <button type="submit" class="btn btn-info mr-3" name="btn_connexion">Connexion</button>
                         <a href="security/creerCompte" class="text-secondary"> s'inscrire pour jouer</a>
                       </form>
                       
-                      <script>
+                      <!-- <script>
                       // Disable form submissions if there are invalid fields
                       (function() {
                         'use strict';
@@ -50,7 +58,7 @@
                           });
                         }, false);
                       })();
-                      </script>
+                      </script> -->
                       
                 </div>
             </div>
