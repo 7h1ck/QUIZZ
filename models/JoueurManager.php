@@ -26,6 +26,10 @@ class JoueurManager extends Manager{
 
     }  
 
+    public function findObject($object){
+        
+    }
+
     public function getUserByLoginAndPwd($login,$pwd){
        $sql="select * from Joueur where login='$login' and pwd='$pwd'";
        return $this-> ExecuteSelect($sql);

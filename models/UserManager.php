@@ -1,6 +1,6 @@
 <?php
 
-class UserManager extends Manager{
+class UserManager extends Manager {
    
     function __construct(){
         $this->tableName="User"; //dois tjr correspondre avec le classname
@@ -9,7 +9,15 @@ class UserManager extends Manager{
 
 
     public function create($objet){
-       $sql = "INSERT INTO User VALUES (null,'$objet->fullName','$objet->login','$objet->pwd','$objet->profil','$objet->avatar')";
+      $nm=  $objet->getFullName();
+      $nm2 =$objet->getLogin();
+      $nm3= $objet->getPassword();
+      $nm5 =$objet->getProfil();
+      $nm6 =$objet->getAvatar();
+
+      $sql = "INSERT INTO user VALUES (null,'$nm','$nm2','$nm3','$nm5','$nm6')";
+      //$nm7= $sql = "INSERT INTO user VALUES (null,".$objet->getFullName().",".$objet->getLogin().",".$objet->getPassword().",".$objet->getProfil().",".$objet->getAvatar().")";
+
        return  $this->executeUpdate( $sql)!=0;
 
     }
@@ -26,8 +34,18 @@ class UserManager extends Manager{
 
     }  
 
-    public function getUserByLoginAndPwd($login,$pwd){
-       $sql="select * from user where login='$login' and pwd='$pwd'";
-       return $this-> ExecuteSelect($sql);
-    } 
+    public function findObject($object){
+        $sql = "SELECT * FROM user WHERE login = '$object'"; 
+        $datas=$this->executeSelect($sql);
+        return count($datas)==1? $datas[0]:null;
+    }
+
+    // public function getUserByLoginPwd($login,$pwd){
+    //     $sql="select * from $this->tableName where login='$login' and password='$pwd'";
+    //     $datas=$this->executeSelect($sql);
+    //     return count($datas)==1? $datas[0]:null;
+    // }
 }
+
+
+
