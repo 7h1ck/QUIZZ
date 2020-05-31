@@ -2,21 +2,19 @@
 
 class Security extends Controller{
 
-    function __construct(){
+    public function __construct(){
+        parent::__construct();
         $this->folder_view="security";
         $this->layout="default";
-        //Objet de Validation
-        $this->validator=new Validator();
-        $this->manager=new CompteManager();
+        $this->manager=new UserManager();
 
     }
 
       
 
 
-    public function showPage(){
+    public function index(){
         //Afficher la Page de Connection
-      
         $this->view="connexion";
         $this->render();
     }
@@ -27,6 +25,56 @@ class Security extends Controller{
     
     }
 
+
+    public function enregistreUser(){
+        //Recuperation des Donnée =>$_POST
+      
+        if(isset($_POST['btn_inscrir'])){
+            //Validation des données saisies
+            //Extraire les données d'un tableau associatif =>extract($tab_associatif)
+            //$_POST['login']   remplacer $login
+            //$_POST['password'] remplacer $password 
+        extract($_POST);
+        $this->validator->isVide($nom,'nom',"Nom Obligatoire");
+        $this->validator->isVide($prenom,'prenom',"Prenom  Obligatoire");
+          $this->validator->isVide($login,'login',"Login Obligatoire");
+          $this->validator->isVide($password,'password',"Mot de Passe  Obligatoire");
+          $this->validator->isVide($passwordC,'passwordC',"La confirmation du mot de Passe est Obligatoire");
+          //$this->validator->isVide($avatar,'avatar',"Avatar  Obligatoire");
+          if($this->validator->isValid()){
+              $user = $this->manager->findObject($login);
+              if($user==null){
+                $newUser =  new User();
+                $fullName = $prenom." ".$nom;
+                $newUser->setFullName($fullName);
+                $newUser->setLogin($login);
+                $newUser->setPassword($password);
+                $newUser->setAvatar($avatar);
+                $newUser->setProfil("joueur");
+                if (isset($data_view['userConntected'])) {
+                    $newUser->setProfil("admin");
+                }
+                $t = $this->manager->create($newUser);
+                
+                $this->index();
+             }else{
+                   //Login ou Mot de passe Incorrect
+                   $this->data_view['err_login']= "Login ou Mot de passe Incorrect";
+                   $this->index();
+                   
+             }
+          }else{
+              $errors=$this->validator->getErrors();
+              $this->data_view['errors']= $errors;
+              $this->view="inscription";
+              $this->render();
+             
+          }
+      }else {
+          $this->index();
+      }
+    
+    }
 
     public function seConnecter(){
         //Recuperation des Donnée =>$_POST
@@ -41,18 +89,19 @@ class Security extends Controller{
             $this->validator->isVide($login,'login',"Login Obligatoire");
             $this->validator->isVide($password,'password',"Mot de Passe  Obligatoire");
             if($this->validator->isValid()){
-               $compte= $this->manager->getUserByLoginPwd($login,$password);
-               if($compte!=null){
+               $user= $this->manager->getUserByLoginPwd($login,$password);
+               if($user!=null){
                    //Compte Existe
-                  if($compte->getProfil()==="joueur"){
-                      echo "Affichage Page de Jeu";
+                   $this->data_view['userConntected'] = $user;
+                   //??new render??
+                  if($user->getProfil()==="joueur"){
                       $this->layout="default";
+                      //layout joueur
                       //$this->view="jeu";
-                      //$this->render();
+                      $this->render();
                       
                       
                   }else{
-                      echo "Affichage Page de l'Admin";
                       $this->layout="admin";
                       $this->view="inscription";
                       $this->render();
@@ -60,17 +109,18 @@ class Security extends Controller{
                }else{
                      //Login ou Mot de passe Incorrect
                      $this->data_view['err_login']= "Login ou Mot de passe Incorrect";
-                     //$_GET['url']=[];
-                     $this->showPage();
+                     $this->index();
                      
                }
             }else{
                 $errors=$this->validator->getErrors();
-              $this->data_view['errors']= $errors;
+                $this->data_view['errors']= $errors;
                 $this->view="connexion";
                 $this->render();
                
             }
+        }else {
+            $this->index();
         }
        
       
