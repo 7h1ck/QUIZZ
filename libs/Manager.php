@@ -7,7 +7,7 @@ abstract class Manager{
       //Ouvrir la Connexion
       private function getConnexion(){
           if($this->pdo==null){
-              $this->pdo = new PDO('mysql:host=localhost;dbname=quizz_liage','root','');
+              $this->pdo = new PDO('mysql:host=localhost;dbname=quizz','root','');
               //Activer les erreurs de PDO
               $this->pdo ->setAttribute (PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
               //Retourne les données d'une requete select sous la forme d'un tableau Associatif
@@ -52,7 +52,7 @@ abstract class Manager{
     
        }
 
-      public abstract function add($objet);
+      public abstract function create($objet);
       public abstract function update($objet);
       public  function delete($id){
         $sql="delete from $this->tableName where id=$id";

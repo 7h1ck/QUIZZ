@@ -1,51 +1,41 @@
-<div id="inscription-form" class="w-50 bgWhite container rounded  text-secondary py-2">
-            <div class=" inscription-form-header">
-                <h1 class="h4 m-0">S'INSCRIRE</h1>
-                <p class="mb-1 ">Pour proposer un quizz</p>
-                <hr class="w-50 m-0">
-            </div>
+<div class="card shadow">
+<div class="card-body row">
+                            <div class="col-7">
+                            <h5 class="card-title">S’INSCRIRE</h5>
+                            <p class="card-text">Pour proposer des quizz</p>
+                            <hr>
+                            <form method="post" action="">
+                              <div class="form-group">
+                                <label for="nom">Nom</label>
+                                <input id="nom" class="form-control" type="text" name="nom">
+                              </div>
+                              <div class="form-group">
+                                <label for="prenom">Prénom</label>
+                                <input id="prenom" class="form-control" type="text" name="prenom">
+                              </div>
+                              <div class="form-group">
+                                <label for="login">Login</label>
+                                <input id="login" class="form-control" type="text" name="login">
+                              </div>
+                              <div class="form-group">
+                                <label for="">Password</label>
+                                <input type="password" class="form-control" name="password" id="" placeholder="">
+                              </div>
+                              <div class="form-group">
+                                <label for="">Confirmer password</label>
+                                <input type="password" class="form-control" name="password" id="" placeholder="">
+                              </div>
+                              <div class="form-group d-flex justify-content-between">
+                                <p class="">Avatar</p>
+                                <input class=" form-control-file w-25" type="file">
+                              </div>
+                
+                              <button class="btn btn-info m-auto" type="submit">Créer compte</button>
+                            </form>
+                            </div>
+                            <div class="col-5">
+                              <img src="<?=URL_ASSETS?>/img/Amdi.jpg" alt="" class="rounded-circle border w-100" >
+                            </div>
 
-            <div class="inscription-form-body row">
-                <div class="col-md-7">
-                    <form class="pr-5">
-                        <div class="form-group mb-1">
-                            <label class="m-0 p-1" for="prenom">Prenom</label>
-                            <input name="prenom" type="email" class="form-control" id="prenom">
-                        </div>
-
-                        <div class="form-group mb-1">
-                            <label class="m-0 p-1" for="nom">Nom</label>
-                            <input name="nom" type="password" class="form-control" id="nom">
-                        </div>
-
-                        <div class="form-group  mb-1">
-                            <label class="m-0 p-1" for="login">Login</label>
-                            <input name="login" type="password" class="form-control" id="login">
-                        </div>
-
-                        <div class="form-group mb-1">
-                            <label class="m-0 p-1" for="password1">Password</label>
-                            <input name="password1" type="password" class="form-control" id="password1">
-                        </div>
-
-                        <div class="form-group mb-1">
-                            <label class="m-0 p-1" for="password2">Confirmer Password</label>
-                            <input name="password2" type="password" class="form-control" id="password2">
-                        </div>
-
-                        <div class="form-group  my-2 d-flex justify-content-between">
-                            <label class="d-block">Avatar</label>
-                            <button class="btn btn-primary d-block">choisir un fichier</button>
-                        </div>
-
-
-
-                        <button type="submit" class="btn btn-primary">Creer compte</button>
-
-                </div>
-                <div class="col-md-4">
-                    <div class="avatar w-75 ">
-                        <img class="img-fluid" src="./img/" alt="">
-                    </div>
-                </div>
-            </div>
+</div>
+</div>

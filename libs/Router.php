@@ -1,6 +1,6 @@
 <?php
 class Router{
-
+  private $ctrl;
 
   public function getRoute(){
       
@@ -13,11 +13,11 @@ class Router{
             $pathControlers = "./controllers/".$class.".php";
 
             if (file_exists($pathLibs)) {
-                require  $pathLibs; 
+                require_once $pathLibs; 
             }elseif(file_exists( $pathControlers)){
-              require  $pathControlers; 
+              require_once  $pathControlers; 
             }elseif(file_exists($pathModels )){
-              require  $pathModels; 
+              require_once  $pathModels; 
             } 
         });
      //2-Selectionner le Controller et executé une methode de ce controller
@@ -26,45 +26,48 @@ class Router{
           
           //transforme url en tableau
            $url=explode("/", $_GET['url']);
+           $n = count($url);
            //Convertir Premeire lettre du Controller en Majuscule
-          $controller=ucfirst($url[0]);
+          $controller=ucfirst($url[$n-2]);
           $pathControlers = "./controllers/".$controller.".php";
           //Controller Existe
           if(file_exists($pathControlers)){
             $cont=new $controller();
             //Action  Existe
-            if(isset($url[1])){
+            if(isset($url[$n-1])){
               //Methode Existe dans le Controller
-               if(method_exists($cont,$url[1])){
-                $action=$url[1];
+               if(method_exists($cont,$url[$n-1])){
+                $action=$url[$n-1];
                 $cont->{$action}();
                }else{
                    //Methode  n'Existe pas dans le Controller
-                   $ctrl=new Erreur();
-                   $ctrl->showMessage("Methode  n'Existe pas dans le Controller");
+                   $this->ctrl=new Erreur();
+                   $this->ctrl->showMessage("Methode  n'Existe pas dans le Controller");
                }
 
                
             }else{
-              $ctrl=new Security();
-              $ctrl->showPage();
+              $this->ctrl=new Security();
+              $this->ctrl->showPage();
             }
          
           }else{
             //Controller n'Existe pas
-              $ctrl=new Erreur();
-              $ctrl->showMessage("Ce Controller n'existe pas");
+              $this->ctrl=new Erreur();
+              $this->ctrl->showMessage("Ce Controller n'existe pas");
           }
          
         }else{
-          $ctrl=new Security();
-          $ctrl->showPage();
+          $this->ctrl=new Security();
+          $this->ctrl->showPage();
         }
      
       }catch(Exception $ex){
 
          //Scenario Exception
-          die("Error");
+         $this->ctrl=new Erreur();
+         $this->ctrl->showMessage($ex->getMessage());
+          //die("Error");
       }
   }
 }

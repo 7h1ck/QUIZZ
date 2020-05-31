@@ -1,5 +1,5 @@
 <?php
-   define("URL_ASSETS","http://localhost/bases/quizzs/assets");
+   define("URL_ASSETS","http://localhost/bases/quizz/assets");
 
   require_once('./libs/Router.php');
    $router=new Router();

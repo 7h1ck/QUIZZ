@@ -1,11 +1,8 @@
 <?php
-class User implements IManager{
-    protected $id;
-    protected $fullName;
-    protected $login;
-    protected $pwd;
-    protected $profil;
-    protected $avatar;
+class Joueur extends User{
+    private $scors;
+    private $nbrePartie;
+
 
     public function __construct($row=null){
         if($row!=null){
@@ -20,13 +17,7 @@ class User implements IManager{
        $this->pwd=$row['pwd'];
        $this->profil=$row['profil'];
        $this->avatar=$row['avatar'];
+       $this->scors=$row['scors'];
+       $this->nbrePartie=$row['nbrePartie'];
     }
-
-    // TRY AUTO-HYDRATE
-    
-    /*public function hydrate($row){
-        foreach ($row as $key => $value) {
-            $this->{$key} = $value;
-        }
-     }*/
 }

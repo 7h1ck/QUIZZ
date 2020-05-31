@@ -45,14 +45,32 @@ class Validator{
     }
 
     //Email
-    public function isEmail($email,$key,$sms="La Longeur doit etre superieur à la Largeur"){
-
+    public function isEmail($valeur,$key,$sms=null)
+    {
+        if(!preg_match("#^[a-z0-9_.-]+@[a-z0-9_.-]{2,}\.[a-z]{2,4}$#",$valeur))
+        {
+            if($sms==null)
+            {
+                $sms="L'email n'est pas valide";
+            }
+    
+            $this->errors[$key]= $sms;
+        }
+    
     }
 
     //Telephone
-    public function isTelephone($telephone,$key,$sms="La Longeur doit etre superieur à la Largeur"){
-        
+    public function isTelephone($valeur,$key,$sms=null)
+    {
+        if (!preg_match("#^7[5-80][ .-]?[0-9]{3}([ .-]?[0-9]{2}){2}$#",$valeur))
+        {
+            if($sms==null)
+            {
+                $sms="Le numéro n'est pas valide";
+            }
+    
+            $this->errors[$key]= $sms;
+        }
     }
 }
-
 ?>

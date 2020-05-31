@@ -1,16 +1,16 @@
 <?php
 
-class UserManager extends Manager{
+class JoueurManager extends Manager{
    
     function __construct(){
-        $this->tableName="User"; //dois tjr correspondre avec le classname
+        $this->tableName="Joueur";
     }
 
 
 
     public function create($objet){
-       $sql = "INSERT INTO User VALUES (null,'$objet->fullName','$objet->login','$objet->pwd','$objet->profil','$objet->avatar')";
-       return  $this->executeUpdate( $sql)!=0;
+        $sql = "INSERT INTO Joueur VALUES (null,'$objet->fullName','$objet->login','$objet->pwd','$objet->profil','$objet->avatar','$objet->scors','$objet->nbrePartie')";
+        return  $this->executeUpdate( $sql)!=0;
 
     }
     public function update($objet){
@@ -27,7 +27,7 @@ class UserManager extends Manager{
     }  
 
     public function getUserByLoginAndPwd($login,$pwd){
-       $sql="select * from user where login='$login' and pwd='$pwd'";
+       $sql="select * from Joueur where login='$login' and pwd='$pwd'";
        return $this-> ExecuteSelect($sql);
     } 
 }

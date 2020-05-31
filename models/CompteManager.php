@@ -6,7 +6,7 @@ class CompteManager extends Manager{
          $this->tableName="Compte";
      }
 
-     public function add($objet){
+     public function create($objet){
          $sql="";
          
         return  $this->executeUpdate( $sql)!=0;

@@ -31,7 +31,7 @@ class Security extends Controller{
     public function seConnecter(){
         //Recuperation des Donnée =>$_POST
       
-        /*if(isset($_POST['btn_connexion'])){
+        if(isset($_POST['btn_connexion'])){
               //Validation des données saisies
               //Extraire les données d'un tableau associatif =>extract($tab_associatif)
               //$_POST['login']   remplacer $login
@@ -45,20 +45,24 @@ class Security extends Controller{
                if($compte!=null){
                    //Compte Existe
                   if($compte->getProfil()==="joueur"){
-                      */echo "Affichage Page de Jeu";
-                      $this->layout="admin";
-                      $this->view="inscription";
-                      $this->render();
-                      /*
+                      echo "Affichage Page de Jeu";
+                      $this->layout="default";
+                      //$this->view="jeu";
+                      //$this->render();
+                      
                       
                   }else{
                       echo "Affichage Page de l'Admin";
+                      $this->layout="admin";
+                      $this->view="inscription";
+                      $this->render();
                   }
                }else{
                      //Login ou Mot de passe Incorrect
                      $this->data_view['err_login']= "Login ou Mot de passe Incorrect";
-                     $this->view="connexion";
-                     $this->render();
+                     //$_GET['url']=[];
+                     $this->showPage();
+                     
                }
             }else{
                 $errors=$this->validator->getErrors();
@@ -67,7 +71,7 @@ class Security extends Controller{
                 $this->render();
                
             }
-        }*/
+        }
        
       
     }
