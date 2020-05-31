@@ -48,7 +48,7 @@ class Router{
                
             }else{
               $this->ctrl=new Security();
-              $this->ctrl->showPage();
+              $this->ctrl->index();
             }
          
           }else{
@@ -59,7 +59,7 @@ class Router{
          
         }else{
           $this->ctrl=new Security();
-          $this->ctrl->showPage();
+          $this->ctrl->index();
         }
      
       }catch(Exception $ex){

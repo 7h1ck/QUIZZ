@@ -10,6 +10,12 @@ class Controller{
     //Ecriture et l'execution des requetes
     protected $manager;
 
+
+    public function __construct(){
+        //Objet de Validation
+        $this->validator=new Validator();
+    }
+
     //  Afficher une vue
     public function render(){
         ob_start();

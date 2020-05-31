@@ -64,4 +64,11 @@ abstract class Manager{
      }
       public abstract function findById($id);
 
+      public abstract function findObject($object);
+
+      public function getUserByLoginPwd($login,$pwd){
+        $sql="select * from $this->tableName where login='$login' and password='$pwd'";
+        $datas=$this->executeSelect($sql);
+        return count($datas)==1? $datas[0]:null;
+      }
 }
