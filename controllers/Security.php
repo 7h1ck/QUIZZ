@@ -51,7 +51,7 @@ class Security extends Controller{
                 $newUser->setPassword($password);
                 $newUser->setAvatar($avatar);
                 $newUser->setProfil("joueur");
-                if (isset($data_view['userConntected'])) {
+                if (isset($data_view['userConnected'])) {
                     $newUser->setProfil("admin");
                 }
                 $t = $this->manager->create($newUser);
@@ -92,7 +92,7 @@ class Security extends Controller{
                $user= $this->manager->getUserByLoginPwd($login,$password);
                if($user!=null){
                    //Compte Existe
-                   $this->data_view['userConntected'] = $user;
+                   $this->data_view['userConnected'] = $user;
                    //??new render??
                   if($user->getProfil()==="joueur"){
                       $this->layout="default";

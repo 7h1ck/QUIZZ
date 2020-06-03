@@ -18,14 +18,14 @@ require_once("./views/layout/inc/header.inc.php");
                           <div class="col-5">
                               <img src="<?=URL_ASSETS?>/img/Amdi.jpg" alt="" class="rounded-circle border w-100" >
                           </div>
-                          <h3 class="text-white">AMDI FALL</h3>
+                          <h3 class="text-white"><?=$userConnected->getFullName()?></h3>
                         </div>
                         <div class="card-body">
                            <nav class="nav flex-column py-3 ">
-                                <a class="nav-link active" href="#">Lister Admin</a>
+                                <a class="nav-link active" href="#">Liste Questions</a>
                                 <a class="nav-link" href="#">Créer Admin</a>
-                                <a class="nav-link" href="#">Liste joueur</a>
-                                <a class="nav-link" href=" #">Creer Question</a>
+                                <a class="nav-link" href="jeu/listjoueur">Liste joueurs</a>
+                                <a class="nav-link" href=" #">Créer Questions</a>
                             </nav>
                         </div>
                       </div>
