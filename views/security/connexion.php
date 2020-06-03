@@ -4,7 +4,7 @@
                    <span class="text-white">Login Form</span>
                 </div>
                 <div class="card-body">
-                    <form action="security/seConnecter" method="post" class="needs-validation" novalidate>
+                    <form action="<?=URL_ROOT?>security/seConnecter" method="post" class="needs-validation" novalidate>
                         <div class="form-group">
                           <!-- <label for="uname">Username:</label> -->
                           <input type="text" class="form-control" id="uname" placeholder="login" name="login" required>
@@ -36,7 +36,7 @@
                 
                         </div>
                         <button type="submit" class="btn btn-info mr-3" name="btn_connexion">Connexion</button>
-                        <a href="security/creerCompte" class="text-secondary"> s'inscrire pour jouer</a>
+                        <a href="<?=URL_ROOT?>security/creerCompte" class="text-secondary"> S'inscrire pour jouer</a>
                       </form>
                       
                       <!-- <script>

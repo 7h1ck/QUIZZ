@@ -17,7 +17,7 @@
 
     <!-- <header> -->
     <nav class="navbar navbar-dark d-flex justify-content-start" style="background-color: #042425;">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="<?=URL_ROOT?>security/index">
                     <img src="<?=URL_ASSETS?>/img/logo-QuizzSA.png" alt="logo" style="width:40px;">
                 </a>
                 <h2 class="text-white text-center flex-grow-1">Le plaisir de jouer</h2>

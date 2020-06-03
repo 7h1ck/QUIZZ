@@ -3,8 +3,13 @@
                             <div class="col-7">
                             <h5 class="card-title">S’INSCRIRE</h5>
                             <p class="card-text">Pour proposer des quizz</p>
+                            <?php
+                if (isset($info)){ 
+                  ?>
+                          <small class="text-success"><?=$info?></small>
+                <?php } ?>                      
                             <hr>
-                            <form method="post" action="security/enregistreUser">
+                            <form method="post" action="<?=URL_ROOT?>security/enregistreUser">
                               <div class="form-group">
                                 <label for="nom">Nom</label>
                                 <input id="nom" class="form-control" type="text" name="nom">

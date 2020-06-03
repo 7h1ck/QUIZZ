@@ -7,7 +7,7 @@ class Security extends Controller{
         $this->folder_view="security";
         $this->layout="default";
         $this->manager=new UserManager();
-
+        session_start();
     }
 
       
@@ -15,6 +15,8 @@ class Security extends Controller{
 
     public function index(){
         //Afficher la Page de Connection
+        unset($_SESSION['userConnected']);
+        session_destroy();
         $this->view="connexion";
         $this->render();
     }
@@ -22,13 +24,19 @@ class Security extends Controller{
     public function creerCompte(){
         $this->view="inscription";
         $this->render();
-    
+        
     }
 
 
     public function enregistreUser(){
         //Recuperation des Donnée =>$_POST
       
+        $profil = "joueur";
+        $layout = "default";
+        if (isset($_SESSION['userConnected'])) {
+            $profil = $layout = "admin";
+
+        }
         if(isset($_POST['btn_inscrir'])){
             //Validation des données saisies
             //Extraire les données d'un tableau associatif =>extract($tab_associatif)
@@ -50,28 +58,37 @@ class Security extends Controller{
                 $newUser->setLogin($login);
                 $newUser->setPassword($password);
                 $newUser->setAvatar($avatar);
-                $newUser->setProfil("joueur");
-                if (isset($data_view['userConnected'])) {
-                    $newUser->setProfil("admin");
+                $newUser->setProfil($profil);
+        
+                $c = $this->manager->create($newUser);
+                if ($c) {
+                    $this->layout = $layout;
+                   $this->view="inscription";
+                   $this->data_view['info']="Utilisateur créee";
+                    $this->render();
                 }
-                $t = $this->manager->create($newUser);
                 
-                $this->index();
+                //$this->index();
              }else{
                    //Login ou Mot de passe Incorrect
-                   $this->data_view['err_login']= "Login ou Mot de passe Incorrect";
-                   $this->index();
+                   $this->data_view['errors']['login']= "Login existe déja";
+                   $this->layout = $layout;
+                   $this->view="inscription";
+                   $this->render();
                    
              }
           }else{
               $errors=$this->validator->getErrors();
               $this->data_view['errors']= $errors;
               $this->view="inscription";
+              $this->layout = $layout;
               $this->render();
              
           }
       }else {
-          $this->index();
+        $this->view="inscription";
+        $this->layout = $layout;
+        $this->render();
       }
     
     }
@@ -92,13 +109,16 @@ class Security extends Controller{
                $user= $this->manager->getUserByLoginPwd($login,$password);
                if($user!=null){
                    //Compte Existe
-                   $this->data_view['userConnected'] = $user;
+                   //session_start();
+                   $_SESSION['userConnected'] = $user;
+                   //extract($_SESSION);
                    //??new render??
                   if($user->getProfil()==="joueur"){
-                      $this->layout="default";
-                      //layout joueur
-                      //$this->view="jeu";
-                      $this->render();
+                      echo "Page jeu";
+                    //   $this->layout="default";
+                    //   //layout joueur
+                    //   //$this->view="jeu";
+                    //   $this->render();
                       
                       
                   }else{
@@ -126,7 +146,7 @@ class Security extends Controller{
       
     }
     public function seDeconnecter(){
-        echo "seDeconnecter"; 
+        $this->index();
     }
 
 }
