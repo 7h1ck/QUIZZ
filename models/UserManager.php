@@ -28,10 +28,12 @@ class UserManager extends Manager {
       
     }
     public function findAll(){
-      
+        
     }
     public function findById($id){
-
+        $sql = "SELECT * FROM user WHERE profil = '$id'"; 
+        $datas=$this->executeSelect($sql);
+        return $datas;
     }  
 
     public function findObject($object){

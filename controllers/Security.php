@@ -7,7 +7,6 @@ class Security extends Controller{
         $this->folder_view="security";
         $this->layout="default";
         $this->manager=new UserManager();
-        session_start();
     }
 
       
@@ -50,6 +49,10 @@ class Security extends Controller{
           $this->validator->isVide($passwordC,'passwordC',"La confirmation du mot de Passe est Obligatoire");
           //$this->validator->isVide($avatar,'avatar',"Avatar  Obligatoire");
           if($this->validator->isValid()){
+              //Validation Password
+              $this->validator->isEgal($password,$passwordC,"passwordC","Les deux Mots de Passe ne sont pas identiques");
+              if($this->validator->isValid()){
+                //Login existe
               $user = $this->manager->findObject($login);
               if($user==null){
                 $newUser =  new User();
@@ -76,6 +79,13 @@ class Security extends Controller{
                    $this->view="inscription";
                    $this->render();
                    
+             }
+            }else{
+                $errors=$this->validator->getErrors();
+                $this->data_view['errors']= $errors;
+                $this->layout=$layout;
+                $this->view="inscription";
+                $this->render();
              }
           }else{
               $errors=$this->validator->getErrors();
@@ -122,9 +132,13 @@ class Security extends Controller{
                       
                       
                   }else{
-                      $this->layout="admin";
-                      $this->view="inscription";
-                      $this->render();
+                    $this->layout="admin";
+                    $this->folder_view="jeu";
+                    $this->view="listJoueurs";
+                    $tabJoueur = $this->manager->findById("joueur");
+                    extract($this->data_view);
+                    $this->data_view['tabJoueur']= $tabJoueur;
+                    $this->render();
                   }
                }else{
                      //Login ou Mot de passe Incorrect

@@ -43,6 +43,11 @@ class Validator{
         }
        
     }
+    public function isEgal($val1,$val2,$key,$sms="Les Valeurs ne sont pas identiques"){
+        if($val1!=$val2){
+            $this->errors[$key]=$sms;
+        }
+    }
 
     //Email
     public function isEmail($valeur,$key,$sms=null)

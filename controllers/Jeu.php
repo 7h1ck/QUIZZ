@@ -6,6 +6,7 @@ class Jeu extends Controller{
         parent::__construct();
         $this->folder_view="jeu";
         $this->layout="admin";
+        $this->manager = new UserManager();
     }
 
       
@@ -13,7 +14,9 @@ class Jeu extends Controller{
 
     public function listJoueurs(){
         //Afficher la Page de Connection
-        echo "listj";
+        $tabJoueur = $this->manager->findById("joueur");
+        extract($this->data_view);
+        $this->data_view['tabJoueur']= $tabJoueur;
         $this->view="listJoueurs";
         $this->render();
     }
