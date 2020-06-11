@@ -9,7 +9,7 @@
                           <small class="text-success"><?=$info?></small>
                 <?php } ?>                      
                             <hr>
-                            <form method="post" action="<?=URL_ROOT?>security/enregistreUser" id="form-inscription">
+                            <form method="post" action="<?=URL_ROOT?>security/enregistreUser" id="form-inscription" enctype="multipart/form-data">
                               <div class="form-group">
                                 <label for="nom">Nom</label>
                                 <input id="nom" class="form-control" type="text" name="nom" error="error_nom">
@@ -68,6 +68,11 @@
                               <div class="form-group d-flex justify-content-between">
                                 <p class="">Avatar</p>
                                 <input class=" form-control-file w-25" type="file" id="imgUser" name="avatar" error="error_avatar">
+                                <?php
+                if (isset($errors['avatar'])){ 
+                  ?>
+                          <small class="text-danger"><?=$errors['avatar']?></small>
+                <?php } ?>
 
                               </div>
                                 <!-- error photo -->
@@ -82,6 +87,9 @@
 
 </div>
 </div>
+<?php
+
+?>
 
 <script>
                 //JS

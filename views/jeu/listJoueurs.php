@@ -17,9 +17,9 @@
                 foreach ($tabJoueur as $joueur) {                     
             ?>
                 <tr>
-                    <td><?=$joueur->getfullName()?></td>
-                    <td><?=$joueur->getLogin()?></td>
-                    <td><?=$joueur->getId() * 10?> pts</td>
+                    <td><?=$joueur->getNom()?></td>
+                    <td><?=$joueur->getPrenom()?></td>
+                    <td><?=$joueur->getScore()?> pts</td>
                 </tr>
 
                 <?php

@@ -16,11 +16,12 @@ class Controller{
         $this->validator=new Validator();
         session_start();
     }
-
+    
     //  Afficher une vue
     public function render(){
         ob_start();
         //Inclusion des données du Controller vers la vue
+        extract($_SESSION);
         extract($this->data_view);
         require_once('views/'.$this->folder_view.'/'.$this->view.'.php');
         $content_for_layout=ob_get_clean();

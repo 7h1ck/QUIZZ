@@ -56,14 +56,60 @@ class Security extends Controller{
               $user = $this->manager->findObject($login);
               if($user==null){
                 $newUser =  new User();
-                $fullName = $prenom." ".$nom;
-                $newUser->setFullName($fullName);
+               // $fullName = $prenom." ".$nom;
+                $newUser->setNom($nom);
+                $newUser->setPrenom($prenom);
                 $newUser->setLogin($login);
                 $newUser->setPassword($password);
-                $newUser->setAvatar($avatar);
+                $newUser->setAvatar($_FILES["avatar"]["name"]);
                 $newUser->setProfil($profil);
-        
+                
                 $c = $this->manager->create($newUser);
+                //chargement avatar
+$target_dir = "assets/img/";
+$target_file = $target_dir . basename($_FILES["avatar"]["name"]);
+$uploadOk = 1;
+$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+// Check if image file is a actual image or fake image
+if(isset($_POST["btn_inscrir"])) {
+    $check = getimagesize($_FILES["avatar"]["tmp_name"]);
+    if($check !== false) {
+        $uploadOk = 1;
+    } else {
+                $this->data_view['errors']['avatar']= "File is not an image";
+                   $this->layout = $layout;
+                   $this->view="inscription";
+                   $this->render();
+        $uploadOk = 0;
+    }
+}
+// Check if file already exists
+// if (file_exists($target_file)) {
+//     echo "Sorry, file already exists.";
+//     $uploadOk = 0;
+// }
+// Check file size
+// if ($_FILES["fileToUpload"]["size"] > 500000) {
+//     echo "Sorry, your file is too large.";
+//     $uploadOk = 0;
+// }
+// Allow certain file formats
+if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+&& $imageFileType != "gif" ) {
+                    $this->data_view['errors']['avatar']= "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                   $this->layout = $layout;
+                   $this->view="inscription";
+                   $this->render();
+    $uploadOk = 0;
+}
+// Check if $uploadOk is set to 0 by an error
+if ($uploadOk == 0) {
+                    $this->data_view['errors']['avatar']= "Sorry, your file was not uploaded.";
+                   $this->layout = $layout;
+                   $this->view="inscription";
+                   $this->render();
+// if everything is ok, try to upload file
+} 
                 if ($c) {
                     $this->layout = $layout;
                    $this->view="inscription";

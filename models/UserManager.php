@@ -9,16 +9,8 @@ class UserManager extends Manager {
 
 
     public function create($objet){
-      $nm=  $objet->getFullName();
-      $nm2 =$objet->getLogin();
-      $nm3= $objet->getPassword();
-      $nm5 =$objet->getProfil();
-      $nm6 =$objet->getAvatar();
-
-      $sql = "INSERT INTO user VALUES (null,'$nm','$nm2','$nm3','$nm5','$nm6')";
-      //$nm7= $sql = "INSERT INTO user VALUES (null,".$objet->getFullName().",".$objet->getLogin().",".$objet->getPassword().",".$objet->getProfil().",".$objet->getAvatar().")";
-
-       return  $this->executeUpdate( $sql)!=0;
+      $sql = "INSERT INTO user (id, nom, prenom, login, password, profil, avatar, score) VALUES (NULL, '".$objet->nom."', '".$objet->prenom."', '".$objet->login."', '".$objet->password."', '".$objet->profil."', '".$objet->avatar."', NULL);";
+       return  $this->executeUpdate($sql)!=0;
 
     }
     public function update($objet){
