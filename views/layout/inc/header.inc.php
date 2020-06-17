@@ -9,6 +9,10 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?=URL_ASSETS?>/css/bootstrap.min.css">
+    <script src="<?=URL_ASSETS?>/js/jquery.min.js"></script>
+    <script src="<?=URL_ASSETS?>/js/popper.min.js"></script>
+    <script src="<?=URL_ASSETS?>/js/bootstrap.min.js"></script>
+    <script src="<?=URL_ASSETS?>/js/bootstrap.bundle.min"></script>
 
 
 </head>

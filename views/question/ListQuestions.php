@@ -1,30 +1,29 @@
 <div class="card shadow w-100 h-100">
 <div class="card-body text-center text-muted d-flex flex-column justify-content-center align-content-center h-100">
-
-    <div class="text-center d-inline-flex justify-content-center"><h4>Nbre de question/Jeu</h4> <input class="form-control ml-4" style="width:7%" type="text" name="nbre_questions"> <button class="btn btn-info ml-4" type="button">OK</button></div>
-
+    <form action="<?=URL_ROOT?>question/fixeNbreQ" method="post">
+    <div class="text-center d-inline-flex justify-content-center"><h4>Nbre de question/Jeu</h4> <input class="form-control ml-4" style="width:7%" type="text" name="nbre_questions"> <button class="btn btn-info ml-4" type="submit">OK</button></div>
+    </form>
     <div class="border border-secondary">
     <ol class="">
-        <li class="">Les langages Web</li>
-            <ul>
-                <li>HTML</li>
-                <li>R JAVA</li>
-            </ul>
-        <li class="">Item</li>
-            <ul>
-                <li>HTML</li>
-                <li>R JAVA</li>
-            </ul>
-        <li class="">Disabled item</li>
-            <ul>
-                <li>HTML</li>
-                <li>R JAVA</li>
-            </ul>
+    <?php
+        foreach ($tabQuestion as $Q) {
+    ?>
+            <li class="font-weight-bold"><?=$Q->question?> ?</li>
+                <ul>
+                    <?php
+                        foreach ($tabReponse as $R) {
+                            if ($R->idQuestion == $Q->id) {
+                    ?>
+                    <li class="text-primary"><?=$R->reponse?></li>
+                            <?php  } ?>
+                        <?php  } ?>
+                </ul>
+        <?php  } ?>
     </ol>
    
     </div>
 
-    <div class=""><a href="" class="btn btn-primary float-right" style="background-color: #3addd6;">Suivant</a></div>
+    <div class=""><a href="" class="btn btn-primary disabled float-right" style="background-color: #3addd6;">Suivant</a></div>
 
 </div>
 </div>

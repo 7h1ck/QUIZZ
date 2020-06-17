@@ -24,7 +24,7 @@ require_once("./views/layout/inc/header.inc.php");
                            <nav class="nav flex-column py-3 ">
                                 <a class="nav-link active" href="<?=URL_ROOT?>question/listQuestions">Liste Questions</a>
                                 <a class="nav-link" href="<?=URL_ROOT?>security/enregistreUser">Créer Admin</a>
-                                <a class="nav-link" href="<?=URL_ROOT?>jeu/listjoueurs">Liste joueurs</a>
+                                <a class="nav-link" href="<?=URL_ROOT?>security/listjoueurs">Liste joueurs</a>
                                 <a class="nav-link" href="<?=URL_ROOT?>question/creerQuestions">Créer Questions</a>
                             </nav>
                         </div>

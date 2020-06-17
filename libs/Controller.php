@@ -14,7 +14,9 @@ class Controller{
     public function __construct(){
         //Objet de Validation
         $this->validator=new Validator();
-        session_start();
+        if (!isset($_SESSION)) {
+            session_start();
+        }
     }
     
     //  Afficher une vue
