@@ -31,7 +31,7 @@
         </table>
     </div>
 
-    <div class=""><a href="" class="btn btn-primary float-right" style="background-color: #3addd6;">Suivant</a></div>
+    <div class=""><a href="#" class="btn text-light float-right" style="background-color: #3addd6;">Suivant</a></div>
 
 </div>
 </div>

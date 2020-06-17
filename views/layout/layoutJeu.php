@@ -15,14 +15,14 @@ require_once("./views/layout/inc/header.inc.php");
                     JOUER ET TESTER VOTRE NIVEAU DE CULTURE GÉNÉRALE
                     </div>
                     <div class="col-2">
-                        <a href="<?=URL_ROOT?>security/seDeconnecter" class="btn btn-primary float-right" style="background-color: #3addd6;">Déconnexion</a>
+                        <a href="<?=URL_ROOT?>security/seDeconnecter" class="btn text-light float-right" style="background-color: #3addd6;">Déconnexion</a>
                     </div>
                 </div>
 
                 <div class="card-body bg-light">
                   <!-- body -->
                     <div class="card-body shadow bg-white h-100 rounded w-100 d-flex align-items-center justify-content-between">
-                      <div class="col-8  bg-info border border-info rounded h-100 d-flex align-items-between flex-column">
+                      <div class="col-8  border border-info rounded h-100 d-flex align-items-between justify-content-between flex-column">
                                             <?php echo $content_for_layout;?>
 
                         

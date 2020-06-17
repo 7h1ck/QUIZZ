@@ -4,19 +4,19 @@
 </div>
 
 
-<div class="bg-light float-right mt-2">
+<div class="bg-light float-right mt-2 text-center align-self-end" style="width:80px; height:50px; font-size:30px;">
 <?=$actuQ->points?> pts
 </div>
 
 
-<div class="bg-light float-right mt-2 h-25">
+<div class="ml-5 float-right mt-2 h-25">
     <form action="<?=URL_ROOT?>jeu/suivant" id="form" onsubmit="return validate();" method="POST">
         <?php
             if ($actuQ->type == "multiple") {
                foreach ($tabReponse as $rep){
                 ?>
                    <div class="form-check">
-                       <input type="checkbox" class="form-check-input" kind="<?=$rep->kind?>" id="customCheck" value="<?=$rep->reponse?>" name="example1">
+                       <input type="checkbox" class="form-check-input" kind="<?=$rep->kind?>" id="customCheck" value="<?=$rep->reponse?>" name="example1" style="width:20px; height:20px;">
                        <label class="form-check-label" for="customCheck"><?=$rep->reponse?></label>
                    </div>
         <?php                  
@@ -26,7 +26,7 @@
         ?>
         
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" kind="<?=$rep->kind?>" id="customCheck" name="reponse" value="<?=$rep->reponse?>">
+                        <input type="radio" class="form-check-input" kind="<?=$rep->kind?>" id="customCheck" name="reponse" value="<?=$rep->reponse?>" style="width:20px; height:20px;">
                         <label class="form-check-label" for="customRadio"><?=$rep->reponse?></label>
                     </div>
         <?php
@@ -41,12 +41,12 @@
         ?> 
             <input type="hidden" name="nQ" value="<?=$i?>">
             <input type="hidden" id="npt" name="nP" value=<?=$actuPoints?>>
-            <span><button class="btn btn-primary float-right" style="background-color: #3addd6; "type="submit" name="btnSuivant" id="btnSuivant">Suivant</button></span>
-    </form>
 </div>
-        <div class="row d-flex justify-content-between">
-            <span><a href="#"  class="btn btn-primary float-right" id="btnPreced" style="background-color: #3addd6;">Précédent</a></span>
+        <div class="d-flex justify-content-between">
+            <span><a href="#"  class="btn text-light float-right" id="btnPreced" style="background-color: #818181;">Précédent</a></span>
+            <span><button class="btn text-light float-right" style="background-color: #3addd6; "type="submit" name="btnSuivant" id="btnSuivant">Suivant</button></span>
         </div>                                          
+    </form>
 <?php
 
 ?>

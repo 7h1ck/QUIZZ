@@ -7,7 +7,7 @@ require_once("./views/layout/inc/header.inc.php");
 
                 <div class="card-header bg-info text-center">
                    <span class="text-white ">CRÉER ET PARAMÉRTER VOS QUIZZ</span>
-                   <a href="<?=URL_ROOT?>security/seDeconnecter" class="btn btn-primary float-right" style="background-color: #3addd6;">Déconnexion</a>
+                   <a href="<?=URL_ROOT?>security/seDeconnecter" class="btn text-light float-right" style="background-color: #3addd6;">Déconnexion</a>
                 </div>
 
                 <div class="card-body bg-light d-flex align-items-center justify-content-between">
