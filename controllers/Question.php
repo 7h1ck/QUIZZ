@@ -11,9 +11,13 @@ class Question extends Controller{
 
     public function listQuestions(){ 
         $RepMgr=new ReponseManager();
+        $RepMgr=new ReponseManager();
+        $partieMgr = new PartieManager();
+        $dataPartie = $partieMgr->findAll();
         $tabQuestion = $this->manager->findAll();
         $tabReponse =  $RepMgr->findAll();
         extract($this->data_view);
+        $this->data_view['nbreQ'] = $dataPartie[0]->nbreQuestions;
         $this->data_view['tabQuestion']= $tabQuestion;
         $this->data_view['tabReponse']= $tabReponse;
         $this->view = "listQuestions";
@@ -24,11 +28,45 @@ class Question extends Controller{
         $this->view = "creerQuestions";
         $this->render();
     }
-
+//Fixer le nombre de question par jeu
     public function fixeNbreQ(){
-        if ($_POST['nbre_questions']) {
-            $partie = new PartieManager();
-            $partie->update($_POST['nbre_questions']);
+        extract($_POST);
+        if (isset($nbre_questions)) 
+        {
+            $this->validator->isVide($nbre_questions,'nbre_questions',"Le nombre de question ne doit pas être vide");
+            if ($this->validator->isValid()) 
+            {
+                $this->validator->isNumerique($nbre_questions,'nbre_questions',"Le nombre doit être numérique");
+                if ($this->validator->isValid()) 
+                {
+                    if ($nbre_questions > 4) 
+                    {
+                        $partie = new PartieManager();
+                        $partie->update($nbre_questions);
+                    } 
+                    else 
+                    {
+                        //Nbre < 5
+                        $this->data_view['errors']['nbre_questions']= "Ce nombre doit être supérieur ou égal à 5";
+                        $this->listQuestions();
+                    }
+                    
+                } else 
+                {
+                    // Pas numérique
+                    $this->data_view['errors']= $this->validator->getErrors();
+                    $this->listQuestions();
+                }
+                
+            } 
+            else 
+            {
+                //Vide
+                $this->data_view['errors']= $this->validator->getErrors();
+                $this->listQuestions();
+            }
+            
+
         }
         $this->listQuestions();
     }

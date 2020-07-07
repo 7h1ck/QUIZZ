@@ -47,9 +47,7 @@
             <span><button class="btn text-light float-right" style="background-color: #3addd6; "type="submit" name="btnSuivant" id="btnSuivant">Suivant</button></span>
         </div>                                          
     </form>
-<?php
 
-?>
 <script>
     var divPoint = document.getElementById("npt");
     var next = document.getElementById("btnSuivant");

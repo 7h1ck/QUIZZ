@@ -87,9 +87,7 @@
 
 </div>
 </div>
-<?php
 
-?>
 
 <script>
                 //JS
@@ -156,95 +154,96 @@
                   })
                */  
 
-               const inputs= document.getElementsByTagName("input") 
-               for(let input of  inputs){
-                       input.addEventListener("keyup",function(event){
-                       if(event.target.hasAttribute("error")){
-                                 //recuperer la valeur de l'attribut error
-                                    let idSmall=event.target.getAttribute("error")
-                                    //recuperer l'objet Small 
-                                    const errorSmall=document.getElementById(idSmall);
-                                    errorSmall.innerText=""
-                                    //innerHTML=>ajouter du Contenu HTML dans une Balise
-                            }
-                  })
+               //#######################################################""
+            //    const inputs= document.getElementsByTagName("input") 
+            //    for(let input of  inputs){
+            //            input.addEventListener("keyup",function(event){
+            //            if(event.target.hasAttribute("error")){
+            //                      //recuperer la valeur de l'attribut error
+            //                         let idSmall=event.target.getAttribute("error")
+            //                         //recuperer l'objet Small 
+            //                         const errorSmall=document.getElementById(idSmall);
+            //                         errorSmall.innerText=""
+            //                         //innerHTML=>ajouter du Contenu HTML dans une Balise
+            //                 }
+            //       })
 
-                }
+            //     }
 
 
 
 
-               document.getElementById("form-inscription").addEventListener("submit",function(event){
-                   let valid=true;
-                  for(let input of  inputs){
-                      if(!input.value.trim()){
-                            valid=false
-                            //Verifie si  l'attribut error existe dans le input
-                            if(input.hasAttribute("error")){
-                                 //recuperer la valeur de l'attribut error
-                                    let idSmall=input.getAttribute("error")
-                                    //recuperer l'objet Small 
-                                    const errorSmall=document.getElementById(idSmall);
-                                    errorSmall.innerText="Champ Obligatoire"
-                                    //innerHTML=>ajouter du Contenu HTML dans une Balise
-                            }
+            //    document.getElementById("form-inscription").addEventListener("submit",function(event){
+            //        let valid=true;
+            //       for(let input of  inputs){
+            //           if(!input.value.trim()){
+            //                 valid=false
+            //                 //Verifie si  l'attribut error existe dans le input
+            //                 if(input.hasAttribute("error")){
+            //                      //recuperer la valeur de l'attribut error
+            //                         let idSmall=input.getAttribute("error")
+            //                         //recuperer l'objet Small 
+            //                         const errorSmall=document.getElementById(idSmall);
+            //                         errorSmall.innerText="Champ Obligatoire"
+            //                         //innerHTML=>ajouter du Contenu HTML dans une Balise
+            //                 }
                             
-                         }
+            //              }
                             
-                  }
-                  if(valid==false){
-                            event.preventDefault();
-                             return false;
-                   }
-              });
+            //       }
+            //       if(valid==false){
+            //                 event.preventDefault();
+            //                  return false;
+            //        }
+            //   });
 
               
 
-              //Chargement de L'image
-             const imgUpload= document.querySelector("#imgUser");
+            //   //Chargement de L'image
+            //  const imgUpload= document.querySelector("#imgUser");
               
 
-             const prevUpload=()=>{
-                   //Récuperation de  l'image  du champ input
-                     let fileImg=imgUpload.files[0]
-                     //Transformer l'image en un flux d'octets
-                     let reader=new FileReader();
-                     if(fileImg){
-                         reader.readAsDataURL(fileImg)
-                         reader.onloadend=function(){
-                               const avatar= document.querySelector("#avatar");
-                               avatar.src=reader.result
-                               //avatar.style.maxWidth="230px"
-                               //avatar.style.maxHeight="330px"
-                         }
-                     }
+            //  const prevUpload=()=>{
+            //        //Récuperation de  l'image  du champ input
+            //          let fileImg=imgUpload.files[0]
+            //          //Transformer l'image en un flux d'octets
+            //          let reader=new FileReader();
+            //          if(fileImg){
+            //              reader.readAsDataURL(fileImg)
+            //              reader.onloadend=function(){
+            //                    const avatar= document.querySelector("#avatar");
+            //                    avatar.src=reader.result
+            //                    //avatar.style.maxWidth="230px"
+            //                    //avatar.style.maxHeight="330px"
+            //              }
+            //          }
 
-            }
+            // }
 
 
 
-            //Ecouteur Evenement
+            // //Ecouteur Evenement
 
-             imgUpload.addEventListener("change",prevUpload);
+            //  imgUpload.addEventListener("change",prevUpload);
 
             
 
 
 
-            /* 
-            function  prevUpload(){
+            // /* 
+            // function  prevUpload(){
 
-             }
-             ou 
+            //  }
+            //  ou 
 
-             prevUpload=function(){
+            //  prevUpload=function(){
 
-             }
-              ou Arrow Fonction
-              prevUpload=()=>{
+            //  }
+            //   ou Arrow Fonction
+            //   prevUpload=()=>{
                  
-               }
+            //    }
 
-             */
+            //  */
 
             </script>

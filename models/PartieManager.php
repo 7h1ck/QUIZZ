@@ -3,7 +3,7 @@
 class PartieManager extends Manager {
    
     function __construct(){
-        $this->tableName="partie"; //dois tjr correspondre avec le classname
+        $this->tableName="partie"; //doit tjr correspondre avec le classname
     }
 
 
@@ -13,7 +13,7 @@ class PartieManager extends Manager {
 
     }
     public function update($nbreQ){
-        $sql = "UPDATE `partie` SET `nbreQuestions`= '$nbreQ' WHERE 'id' = 1";
+        $sql = "UPDATE `partie` SET `nbreQuestions`= $nbreQ WHERE `partie`.`id` = 1";
         return  $this->executeUpdate($sql)!=0;
     }
     

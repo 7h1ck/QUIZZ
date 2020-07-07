@@ -17,6 +17,8 @@ class Controller{
         if (!isset($_SESSION)) {
             session_start();
         }
+        extract($_POST);
+
     }
     
     //  Afficher une vue
