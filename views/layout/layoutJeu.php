@@ -47,40 +47,24 @@ require_once("./views/layout/inc/header.inc.php");
                             <!-- Tab panes -->
                             <div class="tab-content shadow rounded-bottom h-100 border p-3 mb-3">
                               <div id="home" class="container tab-pane active"><br>
-                              <div class="row d-flex justify-content-between">
-                                <span><?=$tabMeilleur[0]->prenom?>  <?=$tabMeilleur[0]->nom?></span>
-                                <span><?=$tabMeilleur[0]->getScore()?></span>
-                              </div>
-                              <div class="row d-flex justify-content-between">
-                                <span><?=$tabMeilleur[1]->prenom?>  <?=$tabMeilleur[0]->nom?></span>
-                                <span><?=$tabMeilleur[1]->getScore()?></span>
-                              </div>
-                              <div class="row d-flex justify-content-between">
-                                <span><?=$tabMeilleur[2]->prenom?>  <?=$tabMeilleur[0]->nom?></span>
-                                <span><?=$tabMeilleur[2]->getScore()?></span>
-                              </div>
-                              <div class="row d-flex justify-content-between">
-                                <span><?=$tabMeilleur[3]->prenom?>  <?=$tabMeilleur[0]->nom?></span>
-                                <span><?=$tabMeilleur[3]->getScore()?></span>
-                              </div>
-                              <div class="row d-flex justify-content-between">
-                                <span><?=$tabMeilleur[4]->prenom?>  <?=$tabMeilleur[0]->nom?></span>
-                                <span><?=$tabMeilleur[4]->getScore()?></span>
-                              </div>
-                                <?php
-                                ?>
+                              <?php
+                                foreach ($tabMeilleur as $joueur) {
+                              ?>
+                                  <div class="row d-flex justify-content-between">
+                                    <span><?=$joueur->prenom?>  <?=$joueur->nom?></span>
+                                    <span><?=$joueur->getScore()?></span>
+                                  </div>
+                              <?php
+                                }
+                              ?>
                               </div>
                               <div id="menu1" class="container tab-pane fade"><br>
                               <h3 class="text-dark">meilleur score</h3>
                               <p class="text-success font-weight-bolder"><?=$userConnected->getScore()?></p>
                               </div>
-                              <!-- <div id="menu2" class="container tab-pane fade"><br>
-                                <h3>Menu 2</h3>
-                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-                              </div> -->
+                             
                             </div>
-                            <!-- <p class="act"><b>Active Tab</b>: <span></span></p>
-                            <p class="prev"><b>Previous Tab</b>: <span></span></p> -->
+                          
                           </div>
 
                           <script>

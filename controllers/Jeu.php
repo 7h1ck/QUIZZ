@@ -57,7 +57,7 @@ class Jeu extends Controller{
         else
         {
             // btn Terminer clicked 
-            var_dump($_SESSION['recap']);                
+            // var_dump($_SESSION['recap']);                
             $this->finJeu();
         }
     }

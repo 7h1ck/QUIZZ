@@ -65,16 +65,7 @@ class Security extends Controller
                     $user = $this->manager->findObject($login);
                     if($user==null)
                     {
-                        $newUser =  new User();
-                        $newUser->setNom($nom);
-                        $newUser->setPrenom($prenom);
-                        $newUser->setLogin($login);
-                        $newUser->setPassword($password);
-                        $newUser->setAvatar($_FILES["avatar"]["name"]);
-                        $newUser->setProfil($profil);
-                        $newUser->setScore($score);
                         
-                        $c = $this->manager->create($newUser);
                         //chargement avatar
                         $target_dir = "assets/img/";
                         $target_file = $target_dir . basename($_FILES["avatar"]["name"]);
@@ -102,7 +93,7 @@ class Security extends Controller
                         // }
 
                         // Allow certain file formats
-                        if($imageFileType != "jpeg" && $imageFileType != "png") 
+                        if($imageFileType != "jepg" && $imageFileType != "png") 
                         {
                             $this->data_view['errors']['avatar']= "Sorry, only PNG, JPEG files are allowed.";
                             $this->layout = $layout;
@@ -120,6 +111,17 @@ class Security extends Controller
                         }
                         else 
                         {
+                            //Création d'utilisateur
+                            $newUser =  new User();
+                            $newUser->setNom($nom);
+                            $newUser->setPrenom($prenom);
+                            $newUser->setLogin($login);
+                            $newUser->setPassword($password);
+                            $newUser->setAvatar($_FILES["avatar"]["name"]);
+                            $newUser->setProfil($profil);
+                            $newUser->setScore($score);
+                        
+                            $c = $this->manager->create($newUser);
                             move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
                         }
                 if ($c) {

@@ -78,7 +78,7 @@
                                 <!-- error photo -->
                                 <small  class="form-text text-danger float-right" id="error_avatar"></small>
                 
-                              <button class="btn btn-info m-auto" name="btn_inscrir" type="submit">Créer compte</button>
+                              <button class="btn btn-info m-auto" name="btn_inscrir" type="submit" onclick="validateJs('form-inscription')">Créer compte</button>
                             </form>
                             </div>
                             <div class="col-5">
@@ -199,32 +199,32 @@
 
               
 
-            //   //Chargement de L'image
-            //  const imgUpload= document.querySelector("#imgUser");
+              //Chargement de L'image
+             const imgUpload= document.querySelector("#imgUser");
               
 
-            //  const prevUpload=()=>{
-            //        //Récuperation de  l'image  du champ input
-            //          let fileImg=imgUpload.files[0]
-            //          //Transformer l'image en un flux d'octets
-            //          let reader=new FileReader();
-            //          if(fileImg){
-            //              reader.readAsDataURL(fileImg)
-            //              reader.onloadend=function(){
-            //                    const avatar= document.querySelector("#avatar");
-            //                    avatar.src=reader.result
-            //                    //avatar.style.maxWidth="230px"
-            //                    //avatar.style.maxHeight="330px"
-            //              }
-            //          }
+             const prevUpload=()=>{
+                   //Récuperation de  l'image  du champ input
+                     let fileImg=imgUpload.files[0]
+                     //Transformer l'image en un flux d'octets
+                     let reader=new FileReader();
+                     if(fileImg){
+                         reader.readAsDataURL(fileImg)
+                         reader.onloadend=function(){
+                               const avatar= document.querySelector("#avatar");
+                               avatar.src=reader.result
+                              //  avatar.style.width="75%"
+                              //  avatar.style.height="75%"
+                         }
+                     }
 
-            // }
+            }
 
 
 
             // //Ecouteur Evenement
 
-            //  imgUpload.addEventListener("change",prevUpload);
+             imgUpload.addEventListener("change",prevUpload);
 
             
 
