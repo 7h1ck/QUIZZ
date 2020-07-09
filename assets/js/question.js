@@ -61,7 +61,7 @@ function numberChamp()
 
 
 function validateTextReponse()
-{
+{// on a 2 réponse au -
     const inputs = document.getElementsByTagName("input");
     var nbrCpNonvide=0;
     for(let input of inputs)
@@ -79,7 +79,7 @@ function validateTextReponse()
     
 }
 
-
+//valid le score et la question
 function validateScQuest()
 {
     var score= document.getElementById("score").value;
@@ -88,17 +88,17 @@ function validateScQuest()
 
    if(!Number.isInteger(+score))
    {
-        document.getElementById('error_2').innerText="veuillez mettre un nombre entier positif";
-       error= true; 
+        document.getElementById('error_nbrePoint').innerText="veuillez mettre un nombre entier positif";
+        error= true; 
    }
    if(!question)
    {
-    document.getElementById('error_1').innerText="la question ne doit pas être vide";
+    document.getElementById('error_question').innerText="la question ne doit pas être vide";
      error=true;
         
    }
     
-
+   // on a pas entrer dans les if donc !error = vraie
    return !error;
         
 }
@@ -112,39 +112,40 @@ function validate()
    if(typeQestion.value=="checkbox" || typeQestion.value=='radio')
    {
      
-            var checked = 0;
+            var repChecked = 0;
 
-            //Reference a tous les checkboxs
+            //Reference a tous les checkboxs in the right
             var chks = form.getElementsByClassName("ck");
 
-            //Pour compter le nombre de checkboxs.
+            //Pour compter le nombre de checkboxs coché.
             for (let chk of chks) 
             { 
                 if (chk.checked) {
-                    checked++;
+                    repChecked++;
                 }
             }
             //appel de la fonction qui determine si nombre de input ecrit est > a 2
-            var tv=validateTextReponse();
+            var twoReponse=validateTextReponse();
 
             
-            if (checked <= 0 || !tv) 
+            if (repChecked <= 0 || !twoReponse) 
             {
-                if(checked <= 0)
+                if(repChecked <= 0)
                 {
                         document.getElementById("general_error").innerHTML="veuillez cocher un champ <br>";
                 }
-                if(!tv)
-                {
+                else
+                {// !twoReponse
                         document.getElementById("general_error").innerHTML+="il faut au moins remplir deux reponses"; 
                 }
 
+                form.preventDefault();
                 errorep = true;
             }
 
     }
 
-
+    //scr and question are valid && on a +2 rep and au- 1 is checked
     return validateScQuest() && !errorep;
 }
 
@@ -185,7 +186,7 @@ function removeElement(parentDiv, childDiv){
 /*
 ----------------------------------------------------------------------------
 
-Functions that will be called upon, when user click on the Name text field.
+Functions add question
 
 ----------------------------------------------------------------------------
 */
@@ -194,61 +195,59 @@ document.getElementById("btn_add").addEventListener("click",function(e)
     {
         if(typeQestion.value==="multiple" || typeQestion.value==="simple")
          {
-             //r=div, y=input, l=label, g=bouton de suppression, c=check ou radio
-            //creattion de div qui ce contenir la ligne r=div
-            var r = document.createElement('div');
-                    r.setAttribute("class", "form-inline my-2");
+             
+            var divReponse = document.createElement('div');
+                    divReponse.setAttribute("class", "form-inline my-2");
             // creattion du label
-            var l = document.createElement('LABEL');
-                l.setAttribute("class", "col-2 lab");
-            //creation du input y=input
-            var y = document.createElement("INPUT");
-                y.setAttribute("type", "text");
-                y.setAttribute("class", "col-5");
+            var label = document.createElement('LABEL');
+                label.setAttribute("class", "col-2 lab");
+            //creation du input 
+            var chmpInput = document.createElement("INPUT");
+                chmpInput.setAttribute("type", "text");
+                chmpInput.setAttribute("class", "col-5");
 
                 //ajouter le label
-                r.appendChild(l);
-                    y.setAttribute("cp", "cp");
+                divReponse.appendChild(label);
+                chmpInput.setAttribute("cp", "cp");
                     
                 
-                var g = document.createElement("button");
-                g.setAttribute("type", "button");
-                g.setAttribute("class", "ml-2 mb-1 close text-danger");
-                g.innerHTML = "&times";
+                var btn_delete = document.createElement("button");
+                btn_delete.setAttribute("type", "button");
+                btn_delete.setAttribute("class", "ml-2 mb-1 close text-danger");
+                btn_delete.innerHTML = "&times";
                 //pour générer le i
                 increment();
                 
-                y.setAttribute("Name", "reponse_" + i);
-                y.setAttribute('onkeyup','removeErCk()');
-                y.setAttribute("error0", "error_" +(i+3));
-                    r.appendChild(y);
-                var c = document.createElement("INPUT");
-                    c.setAttribute("class", "ck form-check-input mx-2");
-                    c.setAttribute("Name", "check[]");
-                    c.setAttribute("onclick", "removeErCk()" );
-                    removeErCk()
+                chmpInput.setAttribute("Name", "reponse_" + i);
+                chmpInput.setAttribute('onkeyup','removeErCk()');
+                chmpInput.setAttribute("error0", "error_" + i);
+                    divReponse.appendChild(chmpInput);
+                var chmpCheckRep = document.createElement("INPUT");
+                    chmpCheckRep.setAttribute("class", "ck form-check-input mx-2");
+                    chmpCheckRep.setAttribute("Name", "check[]");
+                    chmpCheckRep.setAttribute("onclick", "removeErCk()");
+                    removeErCk();
                     if(typeQestion.value==="multiple")
                     {
-                        c.setAttribute("type", "checkbox");
+                        chmpCheckRep.setAttribute("type", "checkbox");
                     }
                     else if(typeQestion.value==="simple")
                     {
-                        c.setAttribute("type", "radio");
+                        chmpCheckRep.setAttribute("type", "radio");
                     }
-                    c.setAttribute("value", i);
-                    r.appendChild(c);
+                    chmpCheckRep.setAttribute("value", i);
+                    divReponse.appendChild(chmpCheckRep);
                 //bouton d'effacement
-                g.setAttribute("onclick", "removeElement('mainReponse','id_" + i + "')");
-                r.appendChild(g);
-                //
+                btn_delete.setAttribute("onclick", "removeElement('mainReponse','id_" + i + "')");
+                divReponse.appendChild(btn_delete);
                 //creation du champ erreur
                 var err=document.createElement("small");
-                err.setAttribute("id", "error_" +(i+3));
+                err.setAttribute("id", "error_" + i);
                 err.setAttribute("class", "error error_rep text-danger");
-                r.appendChild(err);
+                divReponse.appendChild(err);
                 //
-                r.setAttribute("id", "id_" + i);
-            document.getElementById("mainReponse").appendChild(r);
+                divReponse.setAttribute("id", "id_" + i);
+            document.getElementById("mainReponse").appendChild(divReponse);
         
             //appéle la function de génération de labels reponse 
               genRepNumb();

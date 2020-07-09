@@ -8,7 +8,7 @@
         <div class="form-inline">
             <label for="question" class="col-2">Question</label>
             <textarea class="form-control col-10" rows="5" id="question" name="question" onkeyup="removeErrorTxt(&quot;error_1&quot;)"></textarea>
-            <small class="error text-danger" id="error_1"></small>
+            <small class="error text-danger" id="error_question"></small>
 
         </div>
         <div class="form-inline">
@@ -20,7 +20,7 @@
                 <option vlaue="4">4</option>
                 <option vlaue="5">5</option>
             </select>
-        <small class="error text-danger" id="error_2"></small>
+        <small class="error text-danger" id="error_nbrePoint"></small>
         </div>
 
         <div class="form-inline form-check">
@@ -34,9 +34,9 @@
         <button class="btn btn-info col-1 text-center" type="button" id="btn_add">+</button>
         </div>
         <div id="mainReponse">
-            <div class="form-inline my-2" id="divRep">
-                
-            </div>
+            <!-- <div class="form-inline my-2" id="divRep">
+                55555
+            </div> -->
         </div>
         <div id="general_error" class="error text-danger"></div>
     <?php
