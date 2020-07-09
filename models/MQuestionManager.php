@@ -31,6 +31,7 @@ class MQuestionManager extends Manager {
         $sql = "SELECT * FROM `mquestion` WHERE `question` = '$object'"; 
         $datas=$this->executeSelect($sql);
         return count($datas)==1? $datas[0]:null;
+        //kwowing that the count alwayse be 1
     }
 
     // public function getUserByLoginPwd($login,$pwd){

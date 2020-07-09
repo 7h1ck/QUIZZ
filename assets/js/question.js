@@ -1,11 +1,13 @@
+var typeQestion=document.getElementById("typeQuestion");
 
-    document.getElementById("typeQ").addEventListener("change",function(e)
+    
+    //Type question changed
+    typeQestion.addEventListener("change",function(e)
     {
        resetElements();
-       var typeQ = document.getElementById('typeQ').value
-       if(typeQ==="text")
+       if(typeQestion.value==="text")
        {
-        document.getElementById("mainReponse").innerHTML="<div class='form-inline my-2'><label class='col-2'>Réponse &nbsp; &nbsp;</label> <input type='text' class='col-5' onkeyup='removeErrorTxt(\"errortxt\")' error='errortxt' name='breponses[]' /></div> <br> <small id='errortxt' class='error'></small>";
+        document.getElementById("mainReponse").innerHTML="<div class='form-inline my-2'><label class='col-2'>Réponse </label> <input type='text' class='col-5' onkeyup='removeErrorTxt(\"errortxt\")' error='errortxt' name='reponseTxt' /></div> <br> <small id='errortxt' class='error text-danger'></small>";
         }
         removeErCk()
     }); 
@@ -23,11 +25,11 @@
     }
     
 
-    function disabledBtn()
+    /*function disabledBtn()
     {
         var btn= document.getElementById("btn_add");
-        var num=numberChamp();
-        if(num>=10)
+        // var num=numberChamp();
+        if(typeQestion.value != "checkbox" && typeQestion.value != "radio")
         {
             btn.setAttribute("disabled","true");
         }
@@ -55,6 +57,7 @@ function numberChamp()
 
 	return number;
 }
+*/
 
 
 function validateTextReponse()
@@ -103,7 +106,7 @@ function validateScQuest()
 function validate()
 {
    var form = document.getElementById("mainform");
-   var typ = document.getElementById('typeQ').value
+   var typ = document.getElementById('typeQuestion').value
    var errorep=false;
    //si c'est un choix text va obieit a la validation des champs vides
    
@@ -173,7 +176,7 @@ function removeElement(parentDiv, childDiv){
         //appéle la function de génération de labels reponse 
             genRepNumb();
         //appele de function qui limite les champs en desactivant le bouton
-            disabledBtn()
+            // disabledBtn()
     }
     else
     {
@@ -190,8 +193,7 @@ Functions that will be called upon, when user click on the Name text field.
 
 document.getElementById("btn_add").addEventListener("click",function(e)
     {
-        var typeQestion=document.getElementById("typeQ").value
-        if(typeQestion==="multiple" || typeQestion==="simple")
+        if(typeQestion.value==="multiple" || typeQestion.value==="simple")
          {
              //r=div, y=input, l=label, g=bouton de suppression, c=check ou radio
             //creattion de div qui ce contenir la ligne r=div
@@ -226,11 +228,11 @@ document.getElementById("btn_add").addEventListener("click",function(e)
                     c.setAttribute("Name", "check[]");
                     c.setAttribute("onclick", "removeErCk()" );
                     removeErCk()
-                    if(typeQestion==="multiple")
+                    if(typeQestion.value==="multiple")
                     {
                         c.setAttribute("type", "checkbox");
                     }
-                    else if(typeQestion==="simple")
+                    else if(typeQestion.value==="simple")
                     {
                         c.setAttribute("type", "radio");
                     }
@@ -252,7 +254,7 @@ document.getElementById("btn_add").addEventListener("click",function(e)
             //appéle la function de génération de labels reponse 
               genRepNumb();
             // appele de function de limitation des chmaps   
-              disabledBtn();
+            //   disabledBtn();
         }
     });
 
@@ -276,7 +278,7 @@ Functions pour supprimer tout les champs!
     function resetElements()
     {
         document.getElementById('mainReponse').innerHTML = '';
-        disabledBtn()
+        // disabledBtn()
         
     }
 

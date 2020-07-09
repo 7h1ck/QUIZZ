@@ -28,7 +28,7 @@ class Question extends Controller{
         $this->view = "creerQuestions";
         $this->render();
     }
-//Fixer le nombre de question par jeu
+    //Fixer le nombre de question par jeu
     public function fixeNbreQ(){
         extract($_POST);
         if (isset($nbre_questions)) 
@@ -73,62 +73,82 @@ class Question extends Controller{
 
     public function enregistrerQuestion(){
         extract($_POST);
-        $newQuestion = new MQuestion();
-        $newQuestion->setQuestion($question);
-        $newQuestion->setPoints($nbrePoints);
-        $newQuestion->setType($typeQuestion);
-        $sql = $this->manager->create($newQuestion);
-        if ($sql) {
-            //Reuperation de l'ID du question
-            $idQ = $this->manager->findObject($newQuestion->question);
-            if (!$idQ) {
-                //question existe deja
-                die("ce question existe deja");
-            }else {
+        if (isset($btn_save)) 
+        {//click sur Enregistrer  ++valid
+
+            $newQuestion = new MQuestion();
+            $newQuestion->setQuestion($question);//++hydrate
+            $newQuestion->setPoints($nbrePoints);
+            $newQuestion->setType($typeQuestion);
+            //test d'existence
+            $question = $this->manager->findObject($newQuestion->question);
+            if (is_null($question)) 
+            {//question n'existe pas in the BD
                 //new question
+               
+                $this->manager->create($newQuestion);
+
+                //Reuperation de l'ID du question after inserting
+                $newQuestion = $this->manager->findObject($newQuestion->question);
+                
                 $RepMgr=new ReponseManager();
                 $newReponse = new Reponse();
-                $newReponse->setIdQuestion($idQ->id);
-                
+                $newReponse->setIdQuestion($newQuestion->id);
+                //on libère le Poste pour qu'il ne reste que les réponses facilite the recuperation of answers
                 unset($_POST['question']);
                 unset($_POST['nbrePoints']);
-                if ($typeQuestion === "text") {
-                    $newReponse->setReponse($breponses[0]);
+                if ($typeQuestion === "text") 
+                {
+                    $newReponse->setReponse($reponseTxt);
                     $newReponse->setKind("vraie");
                     $RepMgr->create($newReponse);
-                    // var_dump($newReponse);
-                    // die();
-                } else {
-                    # code...
+                } 
+                else 
+                {// reponse <> text
+
                     unset($_POST['typeQuestion']);
                     //Reuperation des reponse
-                    $i=1;
-                    foreach ($_POST as $key => $value){
-                        if ($key!=="check" ){
+                    //N° de la question
+                    $n=1;
+                    foreach ($_POST as $key => $value)
+                    {
+                        // check is a array for selected answer(s)
+                        if ($key!=="check" )
+                        {
                             $newReponse->setReponse($value);
-                            if (in_array($i, $check))
-                            {
+                            if (in_array($n, $check))
+                            {//si ce réponse a été cochée
                                 $newReponse->setKind("vraie");
-                            }else {
+                            }
+                            else 
+                            {
                                 $newReponse->setKind("faux");                                
                             }
                             $RepMgr->create($newReponse);
-                            $i++;
+                            $n++;
                         }
                         
                     }
                 }
-                //render
-                $this->data_view['info']="Question Enregistrer";
-                $this->view = "creerQuestions";
-                $this->render();
-                
+                //tout est Ok
+                $this->data_view['info']="Question Enregistré avec succès";
+                $this->creerQuestions();
+
+            }
+            else 
+            {
+                //question existe déja
+                $this->data_view['info']= "Ce question existe déja";
+                extract($this->data_view);
+                $this->creerQuestions();
             }
             
-
-        }else {
-            die("errr creation question");
+        } 
+        else 
+        {
+            //le btn not clickd
         }
+        
         
         
     }

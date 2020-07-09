@@ -25,7 +25,7 @@
 
         <div class="form-inline form-check">
         <label for="sel1" class="mr-2">Type de réponse</label>
-            <select class="form-control col-8 mr-2" id="typeQ"  name="typeQuestion">
+            <select class="form-control col-8 mr-2" id="typeQuestion"  name="typeQuestion">
                 <option value="">Donnez le type de réponse</option>
                 <option vlaue="text">text</option>
                 <option vlaue="simple">simple</option>
@@ -33,33 +33,19 @@
             </select>
         <button class="btn btn-info col-1 text-center" type="button" id="btn_add">+</button>
         </div>
-        <!-- <div class="form-inline my-2">
-            <label for="my-input" class="col-2">Réponse 1</label>
-            <input id="my-input" class="form-control col-5" type="text" name="">
-            <button type="button" class="ml-2 mb-1 close text-danger" data-dismiss="">&times;</button>
-        </div> -->
-        <!-- <div class="form-inline my-2">
-            <label for="my-input" class="col-2">Réponse 1</label>
-            <input id="my-input" class="form-control col-5 " type="text" name="">
-            <input type="checkbox" name="" id="" class="mx-2">
-            <button type="button" class="ml-2 mb-1 close text-danger" data-dismiss="">&times;</button>
-        </div> -->
         <div id="mainReponse">
             <div class="form-inline my-2" id="divRep">
-                <!-- <label for="my-input" class="col-2">Réponse 1</label>
-                <input id="my-input" class="form-control col-5 " type="text" name="">
-                <input type="radio" name="" id="" class="mx-2">
-                <button type="button" class="ml-2 mb-1 close text-danger" data-dismiss="">&times;</button> -->
+                
             </div>
         </div>
         <div id="general_error" class="error text-danger"></div>
     <?php
             if (isset($info)){ 
                 ?>
-                        <div class="text-info"><?=$info?></div>
+                        <div class="text-danger"><?=$info?></div>
     <?php } ?>
 
-        <button type="submit" class="btn btn-primary float-right" style="background-color: #3addd6;">Enregistrer</button>
+        <button type="submit" class="btn btn-primary float-right" style="background-color: #3addd6;" name="btn_save">Enregistrer</button>
     </div>
         </form>  
 
