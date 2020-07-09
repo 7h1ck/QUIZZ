@@ -44,6 +44,7 @@
 </div>
         <div class="d-flex justify-content-between">
             <span><a href="#"  class="btn text-light float-right" id="btnPreced" style="background-color: #818181;">Précédent</a></span>
+            <span><button class="btn text-light float-right bg-info" href="<?=URL_ROOT?>jeu/finJeu" type="submit" name="" id="">Quitter</button></span>
             <span><button class="btn text-light float-right" style="background-color: #3addd6; "type="submit" name="btnSuivant" id="btnSuivant">Suivant</button></span>
         </div>                                          
     </form>
@@ -53,16 +54,14 @@
     var next = document.getElementById("btnSuivant");
     var inputs = document.getElementsByClassName("form-check-input")
     if (<?=$i?>><?=$nbreQ?>-1) 
-    {
-        //next.setAttribute("disabled","disabled");
+    {//dernier question
         next.innerHTML = "Terminer"
         next.name = "btnTerminer"
     }
 
     if (<?=$i?>==1) 
-    {
+    {//1er question
         var back = document.getElementById("btnPreced");
-        // back.setAttribute("disabled");
         back.className += " disabled"
     }
     next.addEventListener("click",function(event)
@@ -71,7 +70,7 @@
         {
             var rept = document.getElementById("reptext").value;
             if (rept=="<?=$tabReponse[0]->reponse?>") 
-            {   
+            {//Trouver 
                 divPoint.value += Number(<?=$actuQ->points?>)
             }    
         }
@@ -87,14 +86,14 @@
                 } 
             }
             if (correct) 
-            {
+            {//Trouver 
                 divPoint.value += Number(<?=$actuQ->points?>)
 
             }
          
         }
         else 
-        {
+        {// multiple choice rep
             var correct = true;
             
             for(let input of inputs){

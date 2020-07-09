@@ -20,7 +20,7 @@ class MQuestionManager extends Manager {
       
     }
     public function findAll(){
-        $sql = "SELECT * FROM `mquestion`"; 
+        $sql = "SELECT * FROM `mquestion` LIMIT 8"; 
         return $this->executeSelect($sql);
     }
     public function findById($id){
@@ -34,11 +34,7 @@ class MQuestionManager extends Manager {
         //kwowing that the count alwayse be 1
     }
 
-    // public function getUserByLoginPwd($login,$pwd){
-    //     $sql="select * from $this->tableName where login='$login' and password='$pwd'";
-    //     $datas=$this->executeSelect($sql);
-    //     return count($datas)==1? $datas[0]:null;
-    // }
+    
 }
 
 

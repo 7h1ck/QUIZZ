@@ -106,11 +106,10 @@ function validateScQuest()
 function validate()
 {
    var form = document.getElementById("mainform");
-   var typ = document.getElementById('typeQuestion').value
    var errorep=false;
    //si c'est un choix text va obieit a la validation des champs vides
    
-   if(typ=="checkbox" || typ=='radio')
+   if(typeQestion.value=="checkbox" || typeQestion.value=='radio')
    {
      
             var checked = 0;

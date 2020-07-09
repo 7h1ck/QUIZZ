@@ -11,7 +11,6 @@ class Question extends Controller{
 
     public function listQuestions(){ 
         $RepMgr=new ReponseManager();
-        $RepMgr=new ReponseManager();
         $partieMgr = new PartieManager();
         $dataPartie = $partieMgr->findAll();
         $tabQuestion = $this->manager->findAll();
@@ -32,8 +31,9 @@ class Question extends Controller{
     public function fixeNbreQ(){
         extract($_POST);
         if (isset($nbre_questions)) 
-        {
-            $this->validator->isVide($nbre_questions,'nbre_questions',"Le nombre de question ne doit pas être vide");
+        {// btn OK is clicked
+
+            $this->validator->isVide($nbre_questions,'nbre_questions',"Le champ nombre de question ne doit pas être vide");
             if ($this->validator->isValid()) 
             {
                 $this->validator->isNumerique($nbre_questions,'nbre_questions',"Le nombre doit être numérique");
@@ -61,7 +61,7 @@ class Question extends Controller{
             } 
             else 
             {
-                //Vide
+                //Champ vide
                 $this->data_view['errors']= $this->validator->getErrors();
                 $this->listQuestions();
             }

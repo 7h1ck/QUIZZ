@@ -3,7 +3,6 @@
 class Jeu extends Controller{
     private $RepMgr;
     private $nbreQ;
-    private $actuQ;
     private $tabQuestion;
     private $tabReponse;
     private $partie;
@@ -57,7 +56,6 @@ class Jeu extends Controller{
         else
         {
             // btn Terminer clicked 
-            // var_dump($_SESSION['recap']);                
             $this->finJeu();
         }
     }
@@ -65,8 +63,8 @@ class Jeu extends Controller{
     public function finJeu()
     {
         $sC = 0;
+        //chaine score
         for ($i=0; $i < strlen($_POST['nP']); $i++) { 
-            # code...
             $sC += (int)substr($_POST['nP'],$i,1);
         }
         //récap

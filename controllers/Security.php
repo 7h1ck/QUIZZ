@@ -2,13 +2,14 @@
 
 class Security extends Controller
 {
-
+    private $tabJoueur;
     public function __construct()
     {
         parent::__construct();
         $this->folder_view="security";
         $this->layout="default";
         $this->manager=new UserManager();
+        $this->tabJoueur = $this->manager->findById("joueur");
     }
 
       
@@ -23,10 +24,10 @@ class Security extends Controller
         $this->render();
     }
  
-        public function creerCompte(){
+    public function creerCompte()
+    {
         $this->view="inscription";
         $this->render();
-        
     }
 
 
@@ -36,6 +37,7 @@ class Security extends Controller
       
         $profil = "joueur";
         $layout = "default";
+        // d ne pas passer d'une layout à l'autre
         $score = 0;
         if (isset($_SESSION['userConnected'])) 
         {
@@ -44,10 +46,7 @@ class Security extends Controller
         }
         if(isset($_POST['btn_inscrir']))
         {
-            //Validation des données saisies
-            //Extraire les données d'un tableau associatif =>extract($tab_associatif)
-            //$_POST['login']   remplacer $login
-            //$_POST['password'] remplacer $password 
+            
             extract($_POST);
             $this->validator->isVide($nom,'nom',"Nom Obligatoire");
             $this->validator->isVide($prenom,'prenom',"Prenom  Obligatoire");
@@ -64,22 +63,58 @@ class Security extends Controller
                     //test Login existe
                     $user = $this->manager->findObject($login);
                     if($user==null)
-                    {
+                    {// the way is free
                         
                         //chargement avatar
                         $target_dir = "assets/img/";
                         $target_file = $target_dir . basename($_FILES["avatar"]["name"]);
-                        $uploadOk = 1;
                         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
                         // Check if image file is a actual image or fake image
                         $check = getimagesize($_FILES["avatar"]["tmp_name"]);
                         if($check !== false) 
                         {
-                            $uploadOk = 1;
+                            if($imageFileType == "jpeg" || $imageFileType == "png")
+                            {
+                                //Création d'utilisateur
+                                $newUser =  new User();
+                                $newUser->setNom($nom);
+                                $newUser->setPrenom($prenom);
+                                $newUser->setLogin($login);
+                                $newUser->setPassword($password);
+                                $newUser->setAvatar($_FILES["avatar"]["name"]);
+                                $newUser->setProfil($profil);
+                                $newUser->setScore($score);
+                            
+                                $created = $this->manager->create($newUser);
+                                move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
+
+                                if ($created) 
+                                {// Creation ré86
+                                    $this->layout = $layout;
+                                    $this->view="inscription";
+                                    $this->data_view['info']="Utilisateur crée avec succès";
+                                    $this->render();
+                                }
+                                else
+                                {
+                                    $this->layout = $layout;
+                                    $this->view="inscription";
+                                    $this->data_view['info']="Erreur lors de la création";
+                                    $this->render();
+                                }
+                            }
+                            else 
+                            {//fake format
+                                $this->data_view['errors']['avatar']= "Seul les formats PNG, JPEG sont autorisés.";
+                                $this->layout = $layout;
+                                $this->view="inscription";
+                                $this->render();
+                            }
                         } 
                         else 
-                        {
-                            $this->data_view['errors']['avatar']= "File is not an image";
+                        {//fake image
+                            
+                            $this->data_view['errors']['avatar']= "Le fichier n'est pas une image";
                             $uploadOk = 0;
                             $this->layout = $layout;
                             $this->view="inscription";
@@ -92,73 +127,33 @@ class Security extends Controller
                         //     $uploadOk = 0;
                         // }
 
-                        // Allow certain file formats
-                        if($imageFileType != "jepg" && $imageFileType != "png") 
-                        {
-                            $this->data_view['errors']['avatar']= "Sorry, only PNG, JPEG files are allowed.";
-                            $this->layout = $layout;
-                            $this->view="inscription";
-                            $this->render();
-                            $uploadOk = 0;
-                        }
-                        // Check if $uploadOk is set to 0 by an error
-                        if ($uploadOk == 0) 
-                        {
-                            $this->data_view['errors']['avatar']= "Sorry, your file was not uploaded.";
-                            $this->layout = $layout;
-                            $this->view="inscription";
-                            $this->render();
-                        }
-                        else 
-                        {
-                            //Création d'utilisateur
-                            $newUser =  new User();
-                            $newUser->setNom($nom);
-                            $newUser->setPrenom($prenom);
-                            $newUser->setLogin($login);
-                            $newUser->setPassword($password);
-                            $newUser->setAvatar($_FILES["avatar"]["name"]);
-                            $newUser->setProfil($profil);
-                            $newUser->setScore($score);
-                        
-                            $c = $this->manager->create($newUser);
-                            move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
-                        }
-                if ($c) {
-                    $this->layout = $layout;
-                   $this->view="inscription";
-                   $this->data_view['info']="Utilisateur créee";
+                    }
+                    else
+                    {// y'a klkn
+                        $this->data_view['errors']['login']= "Login existe déja";
+                        $this->layout = $layout;
+                        $this->view="inscription";
+                        $this->render();
+                    }
+                }
+                else
+                {//Password not identical
+                    $this->data_view['errors']= $this->validator->getErrors();
+                    $this->layout=$layout;
+                    $this->view="inscription";
                     $this->render();
                 }
-                
-             }else{
-                   //Login ou Mot de passe Incorrect
-                   $this->data_view['errors']['login']= "Login existe déja";
-                   $this->layout = $layout;
-                   $this->view="inscription";
-                   $this->render();
-                   
-             }
-                    }
+            }
             else
-            {
-                $errors=$this->validator->getErrors();
-                $this->data_view['errors']= $errors;
-                $this->layout=$layout;
+            {//chmp vide detected
+                $this->data_view['errors']= $this->validator->getErrors();
                 $this->view="inscription";
+                $this->layout = $layout;
                 $this->render();
-             }
-          }else{
-              $errors=$this->validator->getErrors();
-              $this->data_view['errors']= $errors;
-              $this->view="inscription";
-              $this->layout = $layout;
-              $this->render();
-             
-          }
+            }
         }
         else 
-        {
+        {// btn ain't clicked
             $this->view="inscription";
             $this->layout = $layout;
             $this->render();
@@ -166,75 +161,73 @@ class Security extends Controller
     
     }
 
-    public function seConnecter(){
-        //Recuperation des Donnée =>$_POST
+    public function seConnecter()
+    {
       
-        if(isset($_POST['btn_connexion'])){
-              //Validation des données saisies
-              //Extraire les données d'un tableau associatif =>extract($tab_associatif)
-              //$_POST['login']   remplacer $login
-              //$_POST['password'] remplacer $password 
-                 extract($_POST);
+        if(isset($_POST['btn_connexion']))
+        {
+              
+            extract($_POST);
 
             $this->validator->isVide($login,'login',"Login Obligatoire");
             $this->validator->isVide($password,'password',"Mot de Passe  Obligatoire");
-            if($this->validator->isValid()){
+            if($this->validator->isValid())
+            {
                $user= $this->manager->getUserByLoginPwd($login,$password);
-               if($user!=null){
-                   //Compte Existe
+               if($user!=null)
+               {//Compte Existe
+                   
                    $_SESSION['userConnected'] = $user;
 
-                  if($user->getProfil()==="joueur"){
-                    // $this->layout="layoutJeu";                     
-                    // $this->folder_view="jeu";
-                    // $this->view="partie";
-                    $_SESSION['tabMeilleur'] = $this->manager->findById("joueur");
-                    // extract($this->data_view);
-                    // $this->data_view['tabJoueur']= $tabJoueur;
-                    // $this->render();
-                      
-                    $jeux = new Jeu(); 
-                    $jeux->Jouer();
-                      
-                  }else{
-                    $this->layout="admin";
-                    $this->folder_view="jeu";
-                    $this->view="listJoueurs";
-                    $tabJoueur = $this->manager->findById("joueur");
-                    extract($this->data_view);
-                    $this->data_view['tabJoueur']= $tabJoueur;
-                    $this->render();
-                  }
-               }else{
-                     //Login ou Mot de passe Incorrect
+                    if($user->getProfil()==="joueur")
+                    {
+                        //Pour recupérer les best joueurs
+                        $_SESSION['tabMeilleur'] = $this->tabJoueur;
+                        $jeux = new Jeu(); 
+                        $jeux->Jouer();
+                    }
+                    else
+                    {// admin leu !
+                        $this->listJoueurs();
+                    }
+               }
+               else
+               {//Login ou Mot de passe Incorrect
+                     
                      $this->data_view['err_login']= "Login ou Mot de passe Incorrect";
                      $this->index();
                      
                }
-            }else{
+            }
+            else
+            {//Login ou Mot de passe vide
                 $errors=$this->validator->getErrors();
                 $this->data_view['errors']= $errors;
                 $this->view="connexion";
                 $this->render();
                
             }
-        }else {
+        }
+        else 
+        {//bnt ain't cilcked
             $this->index();
         }
        
       
     }
-    public function seDeconnecter(){
+
+    public function seDeconnecter()
+    {
         $this->index();
     }
 
-    public function listJoueurs(){
+    public function listJoueurs()
+    {
         $this->layout="admin";
         $this->folder_view="jeu";
         $this->view="listJoueurs";
-        $tabJoueur = $this->manager->findById("joueur");
         extract($this->data_view);
-        $this->data_view['tabJoueur']= $tabJoueur;
+        $this->data_view['tabJoueur']= $this->tabJoueur;
         $this->render();
     }
 

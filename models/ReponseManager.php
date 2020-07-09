@@ -32,11 +32,7 @@ class ReponseManager extends Manager {
         return $this->executeSelect($sql);
     }
 
-    // public function getUserByLoginPwd($login,$pwd){
-    //     $sql="select * from $this->tableName where login='$login' and password='$pwd'";
-    //     $datas=$this->executeSelect($sql);
-    //     return count($datas)==1? $datas[0]:null;
-    // }
+    
 }
 
 

@@ -35,7 +35,7 @@
                 <?php } ?>
                 
                         </div>
-                        <button type="submit" class="btn btn-info mr-3" name="btn_connexion">Connexion</button>
+                        <button type="submit" class="btn btn-info mr-3" name="btn_connexion" onclick="validateJs('form-inscription')">Connexion</button>
                         <a href="<?=URL_ROOT?>security/creerCompte" class="text-secondary"> S'inscrire pour jouer</a>
                       </form>
                       
